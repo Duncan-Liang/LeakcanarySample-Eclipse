@@ -41,22 +41,22 @@ public final class ExcludedRefs implements Serializable {
   private ExcludedRefs(Map<String, Set<String>> excludeFieldMap,
       Map<String, Set<String>> excludeStaticFieldMap, Set<String> excludedThreads) {
     // Copy + unmodifiable.
-    this.excludeFieldMap = unmodifiableMap(new LinkedHashMap<>(excludeFieldMap));
-    this.excludeStaticFieldMap = unmodifiableMap(new LinkedHashMap<>(excludeStaticFieldMap));
-    this.excludedThreads = unmodifiableSet(new LinkedHashSet<>(excludedThreads));
+    this.excludeFieldMap = unmodifiableMap(new LinkedHashMap<String, Set<String>>(excludeFieldMap));
+    this.excludeStaticFieldMap = unmodifiableMap(new LinkedHashMap<String, Set<String>>(excludeStaticFieldMap));
+    this.excludedThreads = unmodifiableSet(new LinkedHashSet<String>(excludedThreads));
   }
 
   public static final class Builder {
-    private final Map<String, Set<String>> excludeFieldMap = new LinkedHashMap<>();
-    private final Map<String, Set<String>> excludeStaticFieldMap = new LinkedHashMap<>();
-    private final Set<String> excludedThreads = new LinkedHashSet<>();
+    private final Map<String, Set<String>> excludeFieldMap = new LinkedHashMap<String, Set<String>>();
+    private final Map<String, Set<String>> excludeStaticFieldMap = new LinkedHashMap<String, Set<String>>();
+    private final Set<String> excludedThreads = new LinkedHashSet<String>();
 
     public Builder instanceField(String className, String fieldName) {
     	Preconditions.checkNotNull(className, "className");
       Preconditions.checkNotNull(fieldName, "fieldName");
       Set<String> excludedFields = excludeFieldMap.get(className);
       if (excludedFields == null) {
-        excludedFields = new LinkedHashSet<>();
+        excludedFields = new LinkedHashSet<String>();
         excludeFieldMap.put(className, excludedFields);
       }
       excludedFields.add(fieldName);
@@ -68,7 +68,7 @@ public final class ExcludedRefs implements Serializable {
     	Preconditions.checkNotNull(fieldName, "fieldName");
       Set<String> excludedFields = excludeStaticFieldMap.get(className);
       if (excludedFields == null) {
-        excludedFields = new LinkedHashSet<>();
+        excludedFields = new LinkedHashSet<String>();
         excludeStaticFieldMap.put(className, excludedFields);
       }
       excludedFields.add(fieldName);

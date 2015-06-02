@@ -66,8 +66,8 @@ public final class RefWatcher {
     this.heapDumper = Preconditions.checkNotNull(heapDumper, "heapDumper");
     this.heapdumpListener = Preconditions.checkNotNull(heapdumpListener, "heapdumpListener");
     this.excludedRefs = Preconditions.checkNotNull(excludedRefs, "excludedRefs");
-    retainedKeys = new CopyOnWriteArraySet<>();
-    queue = new ReferenceQueue<>();
+    retainedKeys = new CopyOnWriteArraySet<String>();
+    queue = new ReferenceQueue<Object>();
   }
 
   /**

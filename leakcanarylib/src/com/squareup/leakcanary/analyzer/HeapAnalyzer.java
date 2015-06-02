@@ -168,7 +168,7 @@ public final class HeapAnalyzer {
 
   private Map<IClass, Set<String>> buildClassExcludeMap(ISnapshot snapshot,
       Map<String, Set<String>> excludeMap) throws SnapshotException {
-    Map<IClass, Set<String>> classExcludeMap = new LinkedHashMap<>();
+    Map<IClass, Set<String>> classExcludeMap = new LinkedHashMap<IClass, Set<String>>();
     for (Map.Entry<String, Set<String>> entry : excludeMap.entrySet()) {
       Collection<IClass> refClasses = snapshot.getClassesByName(entry.getKey(), false);
       if (refClasses != null && refClasses.size() == 1) {
@@ -250,7 +250,7 @@ public final class HeapAnalyzer {
 
   private LeakTrace buildLeakTrace(ISnapshot snapshot, PathsFromGCRootsTree tree,
       ExcludedRefs excludedRefs) throws SnapshotException {
-    List<LeakTraceElement> elements = new ArrayList<>();
+    List<LeakTraceElement> elements = new ArrayList<LeakTraceElement>();
     IObject parent = null;
     while (tree != null) {
       IObject child = snapshot.getObject(tree.getOwnId());
